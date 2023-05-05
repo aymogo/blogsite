@@ -1,19 +1,22 @@
-{% extends "blog/index.html" %}
 
-{% block title %}My Blog{% endblock %}
-
+{% extends 'blog/index.html' %}
+{% load static %}
 {% block content %}
-<h1>My Blog</h1>
-{% for post in posts %}
-<h2>
-<a href="{{ post.get_absolute_url }}"> 
-    {{ post.title }}
-</a>
-</h2>
-<p class="date">
-Published {{ post.publish }} by {{ post.author }}
-</p>
-{{ post.body|truncatewords:30|linebreaks }}
-{% endfor %}
-{% include "blog/pagination.html" with page=posts %}
+    {% for post in posts %}
+        <article>
+            <h1><a href="{{post.get_absolute_url}}">{{post.title}}</a></h1>
+            <p class="article_pub-date">Published
+                {{post.publish}} by {{post.author}}
+            </p>
+    
+            <div class="row">
+                <div class="large-12 columns">
+                    <img class="float-right" src="{% static 'img/desktop2.png' %}" />
+                    <p>{{post.body}}</p>
+                </div>
+            </div>
+        <a href="{{post.get_absolute_url}}" class="button">Read More</a>
+        </article>
+        <hr />
+    {% endfor %}
 {% endblock %}
